@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Yassin Ghabghoubi — CV</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -19,141 +19,160 @@
     --text:#e9e7e2;
     --muted:#83898f;
   }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
+
+  /* إلغاء الـ smooth scroll البرمجي لتفادي الارتجاج تماماً */
+  *{
+    box-sizing:border-box; 
+    margin:0; 
+    padding:0;
+    -webkit-tap-highlight-color: transparent;
+  }
   
-  body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:'IBM Plex Mono', monospace;
-    overflow-x:hidden;
-    position:relative;
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    overflow-x: hidden;
+    width: 100%;
+    overscroll-behavior-y: none; /* منع ارتداد الصفحة */
   }
 
-  /* تسريع الأداء الخالي من البطء عبر GPU */
-  .hero-name span, .chip, .plate {
-    will-change: transform;
-    backface-visibility: hidden;
-    transform: translateZ(0);
-  }
+  h1,h2,h3{ font-family:'Oswald', sans-serif; text-transform:uppercase; }
 
-  h1,h2,h3{font-family:'Oswald', sans-serif; text-transform:uppercase;}
-
-  /* Header / Hero Section */
+  /* Header / Hero Section ثابته بدون وحدات متغيرة */
   .hero{
-    min-height:100svh;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    position:relative; z-index:1; text-align:center; padding:24px;
+    padding: 80px 20px 60px 20px;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center;
+    text-align: center;
   }
   .hero-tag{
-    font-size:11px; letter-spacing:.35em; color:var(--amber);
-    margin-bottom:18px; opacity:0;
-    animation: fadeUp .5s ease forwards .1s;
+    font-size: 11px; 
+    letter-spacing: .35em; 
+    color: var(--amber);
+    margin-bottom: 16px;
   }
   .hero-name{
-    display:flex; flex-wrap:wrap; justify-content:center; gap:.28em;
-    font-size:clamp(2.4rem, 10vw, 5.5rem); font-weight:700; line-height:1;
-    letter-spacing:.02em; cursor:pointer; user-select:none;
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: .28em;
+    font-size: clamp(2.2rem, 8vw, 4.5rem); 
+    font-weight: 700; 
+    line-height: 1.1;
+    letter-spacing: .02em; 
+    user-select: none;
   }
-  .hero-name .word{ display:inline-flex; white-space:nowrap; }
-  .hero-name span{
-    display:inline-block;
-    opacity:0;
-    animation: assemble .6s ease forwards;
-    animation-delay: calc(var(--i, 1) * 0.03s + .1s);
-    transition: color 0.2s, transform 0.2s;
-  }
-  .hero-name span:hover{
-    color: var(--amber);
-    transform: translateY(-4px);
-  }
+  .hero-name .word{ display: inline-flex; white-space: nowrap; }
   .hero-role{
-    margin-top:22px; font-size:clamp(.8rem,2.4vw,1rem); color:var(--metal);
-    letter-spacing:.08em; opacity:0;
-    animation: fadeUp .5s ease forwards .8s;
+    margin-top: 18px; 
+    font-size: clamp(.8rem, 2.4vw, 1rem); 
+    color: var(--metal);
+    letter-spacing: .08em;
   }
   .hero-line{
-    width:60px; height:2px; background:var(--amber); margin:22px 0;
-    opacity:0; animation: growLine .4s ease forwards 1s;
+    width: 60px; 
+    height: 2px; 
+    background: var(--amber); 
+    margin: 20px 0;
   }
   .hero-meta{
-    display:flex; gap:18px; flex-wrap:wrap; justify-content:center;
-    font-size:12px; color:var(--muted); opacity:0;
-    animation: fadeUp .5s ease forwards 1.1s;
+    display: flex; 
+    gap: 14px; 
+    flex-wrap: wrap; 
+    justify-content: center;
+    font-size: 12px; 
+    color: var(--muted);
   }
-  .hero-meta span{color:var(--metal-light);}
-
-  @keyframes assemble{ from{ opacity:0; transform:translateY(-10px); } to{ opacity:1; transform:translateY(0); } }
-  @keyframes fadeUp{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
-  @keyframes growLine{ from{opacity:0; width:0;} to{opacity:1; width:60px;} }
+  .hero-meta span{ color: var(--metal-light); }
 
   /* Sections */
-  section{ position:relative; z-index:1; max-width:840px; margin:0 auto; padding:50px 22px; }
-  .section-head{ display:flex; align-items:center; gap:12px; margin-bottom:25px; }
-  .section-head .num{ color:var(--amber); font-size:13px; letter-spacing:.15em;}
-  .section-head h2{ font-size:clamp(1.4rem,4vw,2rem); letter-spacing:.03em; }
-  .section-head::after{ content:''; flex:1; height:1px; background:var(--line); }
+  section{ 
+    max-width: 800px; 
+    margin: 0 auto; 
+    padding: 35px 20px; 
+  }
+  .section-head{ display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .section-head .num{ color: var(--amber); font-size: 13px; letter-spacing: .15em; }
+  .section-head h2{ font-size: clamp(1.3rem, 3.5vw, 1.8rem); letter-spacing: .03em; }
+  .section-head::after{ content: ''; flex: 1; height: 1px; background: var(--line); }
 
-  /* Cards and Plates (تفاعلية خفيفة بـ CSS فقط) */
+  /* Cards and Plates (بدون تأثيرات تحريك مسافة تفادي اهتزاز المتصفح) */
   .plate{
-    background:var(--panel-2);
-    border:1px solid var(--line);
-    border-radius:6px;
-    padding:20px;
-    position:relative;
-    margin-bottom:16px;
-    transition: border-color .2s, transform .2s;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 18px;
+    margin-bottom: 14px;
   }
-  .plate:hover{
-    border-color: var(--amber);
-    transform: translateY(-2px);
-  }
-  .plate h3{ font-size:1.05rem; margin-bottom:4px; color:#fff;}
-  .plate .meta{ color:var(--amber); font-size:11px; margin-bottom:10px;}
-  .plate p, .plate li{ color:var(--metal-light); font-size:13.5px; line-height:1.6;}
-  .plate ul{ list-style:none; }
-  .plate li{ margin-bottom:6px; }
-  .plate li::before{ content:'⟢ '; color:var(--blue); }
+  .plate h3{ font-size: 1.05rem; margin-bottom: 4px; color: #fff; }
+  .plate .meta{ color: var(--amber); font-size: 11px; margin-bottom: 10px; }
+  .plate p, .plate li{ color: var(--metal-light); font-size: 13.5px; line-height: 1.6; }
+  .plate ul{ list-style: none; }
+  .plate li{ margin-bottom: 6px; }
+  .plate li::before{ content: '⟢ '; color: var(--blue); }
 
   /* Chips */
   .chip{
-    display:inline-flex; align-items:center; gap:7px;
-    background:var(--panel); border:1px solid var(--line); border-radius:4px;
-    padding:8px 14px; font-size:12.5px; color:var(--metal-light);
-    transition: border-color .2s, color .2s;
-  }
-  .chip:hover{ 
-    border-color:var(--amber); 
-    color: var(--amber);
+    display: inline-flex; 
+    align-items: center; 
+    background: var(--panel); 
+    border: 1px solid var(--line); 
+    border-radius: 4px;
+    padding: 6px 12px; 
+    font-size: 12px; 
+    color: var(--metal-light);
   }
 
-  /* Progress Bar (مباشرة بدون ثقل) */
-  .progress-wrap{ position:fixed; top:0; left:0; width:100%; height:4px; z-index:50; background:rgba(20,23,26,.6); }
-  .progress-bar{ height:100%; width:0%; background:linear-gradient(90deg, var(--blue), var(--amber)); }
+  /* Progress Bar */
+  .progress-wrap{ 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 3px; 
+    z-index: 50; 
+    background: rgba(20,23,26,.6); 
+  }
+  .progress-bar{ 
+    height: 100%; 
+    width: 0%; 
+    background: var(--amber); 
+  }
 
   /* Floating Button */
   #reassembleBtn{
-    position:fixed; bottom:22px; right:18px; z-index:45;
-    width:46px; height:46px; border-radius:50%;
-    background:var(--panel-2); border:2px solid var(--amber); color:var(--amber);
-    display:flex; align-items:center; justify-content:center;
-    cursor:pointer; transition: transform .2s;
+    position: fixed; 
+    bottom: 20px; 
+    right: 20px; 
+    z-index: 45;
+    width: 44px; 
+    height: 44px; 
+    border-radius: 50%;
+    background: var(--panel-2); 
+    border: 1.5px solid var(--amber); 
+    color: var(--amber);
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    cursor: pointer;
     font-size: 18px;
   }
-  #reassembleBtn:hover{ transform:scale(1.1); }
 </style>
 </head>
 <body>
 
 <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
 
-<button id="reassembleBtn" title="Réinitialiser" onclick="window.scrollTo({top:0, behavior:'smooth'})">⚙️</button>
+<button id="reassembleBtn" title="Haut de page" onclick="window.scrollTo(0, 0)">⬆️</button>
 
 <div class="hero">
   <div class="hero-tag">DOSSIER TECHNIQUE</div>
   <div class="hero-name">
-    <div class="word"><span style="--i:1">Y</span><span style="--i:2">A</span><span style="--i:3">S</span><span style="--i:4">S</span><span style="--i:5">I</span><span style="--i:6">N</span></div>
-    <div class="word"><span style="--i:7">G</span><span style="--i:8">H</span><span style="--i:9">A</span><span style="--i:10">B</span><span style="--i:11">G</span><span style="--i:12">H</span><span style="--i:13">O</span><span style="--i:14">U</span><span style="--i:15">B</span><span style="--i:16">I</span></div>
+    <div class="word"><span>Y</span><span>A</span><span>S</span><span>S</span><span>I</span><span>N</span></div>
+    <div class="word"><span>G</span><span>H</span><span>A</span><span>B</span><span>G</span><span>H</span><span>O</span><span>U</span><span>B</span><span>I</span></div>
   </div>
   <div class="hero-role">PROFESSIONNEL TECHNIQUE — PRODUCTION & FABRICATION</div>
   <div class="hero-line"></div>
@@ -165,7 +184,7 @@
 <section id="objectif">
   <div class="section-head"><span class="num">01</span><h2>Objectif Professionnel</h2></div>
   <div class="plate">
-    <p>Professionnel technique motivé et polyvalent, fort d'une expérience pratique en gestion d'équipe, fabrication mécanique et maintenance de premier niveau.[span_0](start_span)[span_0](end_span) Doté de solides compétences en résolution de problèmes techniques et d'une grande rigueur opérationnelle[span_1](start_span)[span_1](end_span).</p>
+    <p>Professionnel technique motivé et polyvalent, fort d'une expérience pratique en gestion d'équipe, fabrication mécanique et maintenance de premier niveau[span_0](start_span)[span_0](end_span). Doté de solides compétences en résolution de problèmes techniques et d'une grande rigueur opérationnelle[span_1](start_span)[span_1](end_span).</p>
   </div>
 </section>
 
@@ -221,7 +240,7 @@
   <div class="plate">
     <h3>BTP en Fabrication Mécanique</h3>
     <div class="meta">CSF MG Grombalia (2018 - 2020)[span_18](start_span)[span_18](end_span)</div>
-    <div style="margin-top:15px; display:flex; gap:10px; flex-wrap:wrap;">
+    <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
       <span class="chip">CNC & G-Code[span_19](start_span)[span_19](end_span)</span>
       <span class="chip">Gestion d'équipe[span_20](start_span)[span_20](end_span)</span>
       <span class="chip">Maintenance[span_21](start_span)[span_21](end_span)</span>
@@ -231,9 +250,19 @@
 </section>
 
 <script>
-  // شريط التمرير فقط وبدون أي عمليات حسابية أخرى لضمان أقصى سرعة
-  window.addEventListener('scroll', () => {
-    let winScroll = document.documentElement.scrollTop;
+  // تحديث شريط التمرير بدقة وبأسلوب مباشر خفيف للغاية
+  window.addEventListener('scroll', function() {
+    var winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+    var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if (height > 0) {
+      document.getElementById("progressBar").style.width = (winScroll / height) * 100 + "%";
+    }
+  }, { passive: true });
+</script>
+
+</body>
+</html>
+ocument.documentElement.scrollTop;
     let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     document.getElementById("progressBar").style.width = (winScroll / height) * 100 + "%";
   }, { passive: true });
